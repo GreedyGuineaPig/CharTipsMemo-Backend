@@ -1,0 +1,36 @@
+version: '3.8'
+volumes:
+  db-storage:
+services:
+  app:
+    build: .
+    tty: true
+    stdin_open: true
+    volumes:
+      - ..:/app
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_NAME:-go_db}
+      - DB_USERNAME=${DB_USER:-user}
+      - DB_PASSWORD=${DB_PASS:-password}
+    ports:
+      - 8080:8080
+  db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    ports:
+      - 13306:3306
+    volumes:
+      - type: volume
+        source: db-storage
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+    environment:
+      - MYSQL_DATABASE=${DB_NAME:-go_db}
+      - MYSQL_USER=${DB_USER:-user}
+      - MYSQL_PASSWORD=${DB_PASS:-password}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS:-password}
