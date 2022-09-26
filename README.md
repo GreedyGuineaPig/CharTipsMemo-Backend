@@ -1,14 +1,14 @@
 # TweetMemoAPI
 
 ## Description
-this is gonna be an api for recording twitter's tweet URL in golang, and also will be able to communicate with vue3 frontend app and a database.
+this is gonna be an api for saving twitter's tweet URL in golang. It can communicate with attached mysql container.
 
 ## Functions
 According to RESTful-api pattern. I am going to implement the below functions.
 - get
-- put
-- post
+- patch
+- create
 - delete
 
 ## techs
-Golang, RESTful-api.
+Golang, gin, gorm, RESTful-api, docker, docker-compose, mysql
